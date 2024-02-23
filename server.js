@@ -1,8 +1,11 @@
-require("dotenv").config();
+// require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
+require("dotenv").config();
 
-const { DB_HOST, PORT = 3000 } = process.env;
+// const DB_HOST = "mongodb+srv://Maryna:jT5X0PMwsIaPNz8o@cluster0.5mowdde.mongodb.net/Filmoteka?retryWrites=true&w=majority&appName=Cluster0";
+
+const { PORT = 3000, DB_HOST } = process.env;
 
 // console.log(process.env);
 

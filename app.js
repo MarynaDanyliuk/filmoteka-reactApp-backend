@@ -1,13 +1,18 @@
 // Import packages
 const express = require("express");
+const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
 const usersRouter = require("./routes/api/users");
 const routerMovies = require("./routes/api/movies");
 
-// Middlewares
 const app = express();
+
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+// Middlewares
+app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
