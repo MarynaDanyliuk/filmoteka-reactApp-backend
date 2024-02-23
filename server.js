@@ -2,10 +2,9 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
 
-const DB_HOST =
-  "mongodb+srv://Maryna:jT5X0PMwsIaPNz8o@cluster0.5mowdde.mongodb.net/filmoteka?retryWrites=true&w=majority&appName=Cluster0";
+const { DB_HOST, PORT = 3000 } = process.env;
 
-const { PORT = 3001 } = process.env;
+// console.log(process.env);
 
 mongoose.set("strictQuery", true);
 
