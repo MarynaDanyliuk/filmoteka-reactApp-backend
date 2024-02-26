@@ -1,20 +1,26 @@
 const express = require("express");
-const createError = require("http-errors");
 
-const movies = require("../../models/movie");
-const { Movie, schemas } = movies;
-const { authenticate } = require("../../middlewares");
+const ctrl = require("../../controllers/movies");
+
+// const { authenticate, validateBody } = require("../../middlewares");
+
+// const createError = require("http-errors");
+
+// const movies = require("../../models/movie");
+// const { Movie, schemas } = movies;
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
-  return res.status(200).json({
-    title: "Express Testing",
-    message: "The app is working properly!",
-  });
-  // const result = await movies.listMovies();
-  // return res.status(200).json(result);
-});
+router.get("/", ctrl.getAll);
+
+// router.get("/", async (req, res, next) => {
+//   return res.status(200).json({
+//     title: "Express Testing",
+//     message: "The app is working properly!",
+//   });
+//   // const result = await movies.listMovies();
+//   // return res.status(200).json(result);
+// });
 
 module.exports = router;
 
