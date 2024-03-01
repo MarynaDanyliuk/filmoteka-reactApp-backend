@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   return res.status(200).json({
     title: "Express Testing",
-    message: "The app is working properly!",
+    message: "SIGNUP is working properly!",
   });
   // const result = await users.listUsers();
   // return res.status(200).json(result);
