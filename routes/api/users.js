@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
   // return res.status(200).json(result);
 });
 
-router.post("/users/signup", async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   return res.status(200).json({
     title: "Express Testing",
     message: "The app is working properly!",
