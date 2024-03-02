@@ -45,8 +45,8 @@ const register = async (req, res) => {
   //   const { accessToken, refreshToken } = user;
   //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
-    email: newUser.email,
-    name: newUser.name,
+    email: user.email,
+    name: user.name,
     // accessToken,
     // refreshToken,
     // verificationToken,
