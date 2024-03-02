@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     passwordConfirm: {
       type: String,
-      required: true,
+      // required: true,
       minlength: 6,
     },
     token: {
