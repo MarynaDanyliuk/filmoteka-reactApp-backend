@@ -18,7 +18,9 @@ router.get("/", async (req, res, next) => {
   // return res.status(200).json(result);
 });
 
-router.post("/signup", validateBody(schemas.registerSchema), ctrl.register);
+router.post("/signup", schemas.registerSchema, ctrl.register);
+
+// validateBody(schemas.registerSchema),
 
 // router.post("/signup", async (req, res, next) => {
 //   // return res.status(200).json({
