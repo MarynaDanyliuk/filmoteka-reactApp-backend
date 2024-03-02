@@ -1,5 +1,5 @@
-const users = require("./users");
-const movies = require("./movies");
+const users = require("./auth-routes");
+const movies = require("./movies-routes");
 
 module.exports = {
   users,
