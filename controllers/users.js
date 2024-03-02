@@ -19,21 +19,21 @@ const register = async (req, res) => {
   // const { email, password, lang } = body;
   const { email, password } = req.body;
 
-  const newUser = await User.create({ ...req.body });
-  //   let user = await User.findOne({ email });
+  //   const newUser = await User.create({ ...req.body });
+  let user = await User.findOne({ email });
 
-  //   if (user) {
-  //     throw new HttpError(409, "Email in use");
-  //   }
+  if (user) {
+    throw new HttpError(409, "Email in use");
+  }
 
-  //   const hashPassword = await bcrypt.hash(password, 10);
-  //   const verificationCode = nanoid();
+  const hashPassword = await bcrypt.hash(password, 10);
+  const verificationCode = nanoid();
 
-  //   user = await User.create({
-  //     ...req.body,
-  //     password: hashPassword,
-  //     verificationCode,
-  //   });
+  user = await User.create({
+    ...req.body,
+    password: hashPassword,
+    verificationCode,
+  });
 
   //   const verifyEmail = {
   //     to: email,
@@ -47,8 +47,8 @@ const register = async (req, res) => {
   //   const { accessToken, refreshToken } = user;
   //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
-    email: newUser.email,
-    name: newUser.name,
+    email: user.email,
+    name: user.name,
     // accessToken,
     // refreshToken,
     // verificationToken,
