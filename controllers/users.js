@@ -19,7 +19,7 @@ const register = async (req, res) => {
   // const { email, password, lang } = body;
   const { email, password } = req.body;
 
-  const newUser = await User.create(email, password);
+  const newUser = await User.create({ ...req.body });
   //   let user = await User.findOne({ email });
 
   //   if (user) {

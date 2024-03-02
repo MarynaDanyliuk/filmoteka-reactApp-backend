@@ -44,12 +44,17 @@ const loginJoiSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-const User = model("user", userSchema);
+// const schemas = {
+//   register: registerJoiSchema,
+//   login: loginJoiSchema,
+// };
 
 const schemas = {
-  register: registerJoiSchema,
-  login: loginJoiSchema,
+  registerJoiSchema,
+  loginJoiSchema,
 };
+
+const User = model("user", userSchema);
 
 module.exports = {
   User,
