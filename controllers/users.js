@@ -27,12 +27,12 @@ const register = async (req, res) => {
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  const verificationCode = nanoid();
+  //   const verificationCode = nanoid();
 
   user = await User.create({
     ...req.body,
     password: hashPassword,
-    verificationCode,
+    // verificationCode,
   });
 
   //   const verifyEmail = {
