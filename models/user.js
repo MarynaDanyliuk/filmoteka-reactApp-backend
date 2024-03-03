@@ -18,11 +18,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 6,
     },
-    passwordConfirm: {
-      type: String,
-      required: true,
-      minlength: 6,
-    },
+    // passwordConfirm: {
+    //   type: String,
+    //   required: true,
+    //   minlength: 6,
+    // },
     token: {
       type: String,
       default: "",
