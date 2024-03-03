@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+// const { nanoid } = require("nanoid");
 
 const {
   ctrlWrapper,
@@ -15,24 +16,21 @@ const {
 const { User } = require("../models/user");
 
 const register = async (req, res) => {
-  //   const { body } = req;
-  // const { email, password, lang } = body;
   const { email, password } = req.body;
 
-  //   const newUser = await User.create({ ...req.body });
   let user = await User.findOne({ email });
 
   if (user) {
-    throw new HttpError(409, "Email in use");
+    throw HttpError(409, "Email in use");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  //   const verificationCode = nanoid();
+  //   const verificationToken = nanoid();
 
   user = await User.create({
     ...req.body,
     password: hashPassword,
-    // verificationCode,
+    // verificationToken,
   });
 
   //   const verifyEmail = {
@@ -48,10 +46,9 @@ const register = async (req, res) => {
   //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
     email: user.email,
-    name: user.name,
     // accessToken,
     // refreshToken,
-    // verificationToken,
+    // token: verificationToken,
     // email: newUser.email,
     // name: newUser.name,
     // user: selectUserInfo(user),

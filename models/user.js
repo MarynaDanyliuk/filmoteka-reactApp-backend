@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     passwordConfirm: {
       type: String,
-      // required: true,
+      required: true,
       minlength: 6,
     },
     token: {
@@ -33,13 +33,13 @@ const userSchema = new Schema(
 
 userSchema.post("save", handleMongooseError);
 
-const registerJoiSchema = Joi.object({
+const registerSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
   passwordConfirm: Joi.string().min(6).required(),
 });
 
-const loginJoiSchema = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
@@ -50,8 +50,8 @@ const loginJoiSchema = Joi.object({
 // };
 
 const schemas = {
-  registerJoiSchema,
-  loginJoiSchema,
+  registerSchema,
+  loginSchema,
 };
 
 const User = model("user", userSchema);
