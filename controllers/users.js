@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+require("dotenv").config();
 // const { nanoid } = require("nanoid");
 
 const {
@@ -21,11 +22,11 @@ const register = async (req, res) => {
   let user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Email in use");
+    throw new HttpError(409, "Email in use");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  //   const verificationToken = nanoid();
+  //   const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
 
   user = await User.create({
     ...req.body,
@@ -59,11 +60,11 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    throw HttpError(401, "Email or password invalid");
+    throw new HttpError(401, "Email or password invalid");
   }
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    throw HttpError(401, "Email or password is wrong");
+    throw new HttpError(401, "Email or password is wrong");
   }
 
   const payload = {
@@ -71,6 +72,13 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+
+  //   try {
+  //     const { id } = jwt.verify(token, SECRET_KEY);
+  //     console.log(id);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
 
   const result = await User.findByIdAndUpdate(user._id, { token });
 
