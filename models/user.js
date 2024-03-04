@@ -18,11 +18,6 @@ const userSchema = new Schema(
       required: true,
       minlength: 6,
     },
-    // passwordConfirm: {
-    //   type: String,
-    //   required: true,
-    //   minlength: 6,
-    // },
     token: {
       type: String,
       default: "",
@@ -44,11 +39,6 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-// const schemas = {
-//   register: registerJoiSchema,
-//   login: loginJoiSchema,
-// };
-
 const schemas = {
   registerSchema,
   loginSchema,
@@ -61,6 +51,15 @@ module.exports = {
   schemas,
 };
 
+// passwordConfirm: {
+//   type: String,
+//   required: true,
+//   minlength: 6,
+// },
+// const schemas = {
+//   register: registerJoiSchema,
+//   login: loginJoiSchema,
+// };
 // ____________________________________________________
 // const fs = require("fs/promises");
 // const path = require("path");

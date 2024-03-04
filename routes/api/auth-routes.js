@@ -1,6 +1,6 @@
 const express = require("express");
 
-const users = require("../../models/user");
+// const users = require("../../models/user");
 const ctrl = require("../../controllers/users");
 
 const { validateBody, authenticate } = require("../../middlewares");
@@ -18,7 +18,17 @@ router.get("/", async (req, res, next) => {
   // return res.status(200).json(result);
 });
 
+// signup
 router.post("/signup", validateBody(schemas.registerSchema), ctrl.register);
+
+// login
+router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
+
+// logout
+router.post("/logout", validateBody(schemas.logoutSchema), ctrl.logout);
+
+module.exports = router;
+
 // router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 // router.post("/signup", async (req, res, next) => {
 //   // return res.status(200).json({
@@ -28,5 +38,3 @@ router.post("/signup", validateBody(schemas.registerSchema), ctrl.register);
 //   const result = await ctrl.register();
 //   return res.status(200).json(result);
 // });
-
-module.exports = router;
