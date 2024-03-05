@@ -18,22 +18,6 @@ router.get("/", async (req, res, next) => {
   // return res.status(200).json(result);
 });
 
-const validateLogin = (req, res, next) => {
-  const { error } = schemas.loginSchema.validate(req.body, {
-    abortEarly: false,
-  });
-
-  if (!Object.keys(req.body).length) throw HttpError(400, "missing fields");
-
-  if (error) {
-    const missingField = error.details[0].context.key;
-    return res
-      .status(400)
-      .json({ message: `missing required ${missingField} field` });
-  }
-  next();
-};
-
 // signup
 router.post("/signup", validateBody(schemas.registerSchema), ctrl.register);
 
@@ -54,3 +38,19 @@ module.exports = router;
 //   const result = await ctrl.register();
 //   return res.status(200).json(result);
 // });
+
+// const validateLogin = (req, res, next) => {
+//   const { error } = schemas.loginSchema.validate(req.body, {
+//     abortEarly: false,
+//   });
+
+//   if (!Object.keys(req.body).length) throw HttpError(400, "missing fields");
+
+//   if (error) {
+//     const missingField = error.details[0].context.key;
+//     return res
+//       .status(400)
+//       .json({ message: `missing required ${missingField} field` });
+//   }
+//   next();
+// };

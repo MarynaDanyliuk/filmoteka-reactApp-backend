@@ -22,11 +22,11 @@ const register = async (req, res) => {
   let user = await User.findOne({ email });
 
   if (user) {
-    throw new HttpError(409, "Email in use");
+    throw HttpError(409, "Email in use");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
-  //   const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
+  const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
 
   user = await User.create({
     ...req.body,
@@ -47,6 +47,7 @@ const register = async (req, res) => {
   //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
     email: user.email,
+    token: token,
     // accessToken,
     // refreshToken,
     // token: verificationToken,
@@ -60,11 +61,11 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    throw new HttpError(401, "Email or password invalid");
+    throw HttpError(401, "Email or password invalid");
   }
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    throw new HttpError(401, "Email or password is wrong");
+    throw HttpError(401, "Email or password is wrong");
   }
 
   const payload = {
