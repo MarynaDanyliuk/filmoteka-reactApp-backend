@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
+// const crypto = require("crypto");
 require("dotenv").config();
 // const { nanoid } = require("nanoid");
 
@@ -11,9 +11,10 @@ const {
   //   removeFromCloud,
 } = require("../helpers");
 
-// const SECRET_KEY = "";
+const SECRET_KEY = "lao<9~H{iVX6m=hsg}hhUDoi=Vu5:_";
 
-const { SECRET_KEY, FRONTEND_URL } = process.env;
+// const { SECRET_KEY } = process.env;
+// const { PORT = 3000, DB_HOST } = process.env;
 // const verificationEmail = require("../templates/verificationEmail");
 
 const { User } = require("../models/user");
