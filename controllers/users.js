@@ -1,20 +1,13 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-// const crypto = require("crypto");
 require("dotenv").config();
-// const { nanoid } = require("nanoid");
 
-const {
-  ctrlWrapper,
-  HttpError,
-  //   sendEmail,
-  //   removeFromCloud,
-} = require("../helpers");
+const { ctrlWrapper, HttpError } = require("../helpers");
 
-const SECRET_KEY = "lao<9~H{iVX6m=hsg}hhUDoi=Vu5:_";
+// const SECRET_KEY = "lao<9~H{iVX6m=hsg}hhUDoi=Vu5:_";
 
-// const { SECRET_KEY } = process.env;
-// const { PORT = 3000, DB_HOST } = process.env;
+const { SECRET_KEY } = process.env.SECRET_KEY;
+
 // const verificationEmail = require("../templates/verificationEmail");
 
 const { User } = require("../models/user");
@@ -28,37 +21,15 @@ const register = async (req, res) => {
     throw HttpError(409, "Email in use");
   }
 
-  //   const payload = {
-  //     id: user._id,
-  //   };
-
   const hashPassword = await bcrypt.hash(password, 10);
-  //   const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
 
   user = await User.create({
     ...req.body,
     password: hashPassword,
   });
 
-  //   const verifyEmail = {
-  //     to: email,
-  //     subject: "Verify email",
-  //     html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationCode}">Click verify email</a>`,
-  //   };
-
-  //   await sendEmail(verifyEmail);
-
-  //   user = await refreshUserToken(user._id);
-  //   const { accessToken, refreshToken } = user;
-  //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
     email: user.email,
-    // accessToken,
-    // refreshToken,
-    // token: verificationToken,
-    // email: newUser.email,
-    // name: newUser.name,
-    // user: selectUserInfo(user),
   });
 };
 
@@ -78,13 +49,6 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-
-  //   try {
-  //     const { id } = jwt.verify(token, SECRET_KEY);
-  //     console.log(id);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
 
   const result = await User.findByIdAndUpdate(user._id, { token });
 
@@ -127,12 +91,37 @@ module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
-  //   verifyEmail: ctrlWrapper(verifyEmail),
-  //   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
-  //   getCurrent: ctrlWrapper(getCurrent),
-  //   updateAvatar: ctrlWrapper(updateAvatar),
 };
 
+// const { nanoid } = require("nanoid");
+// const crypto = require("crypto");
+
+//   sendEmail,
+//   removeFromCloud,
+
+//   try {
+//     const { id } = jwt.verify(token, SECRET_KEY);
+//     console.log(id);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+
+//   verifyEmail: ctrlWrapper(verifyEmail),
+//   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+//   getCurrent: ctrlWrapper(getCurrent),
+//   updateAvatar: ctrlWrapper(updateAvatar),
+
+//   const verifyEmail = {
+//     to: email,
+//     subject: "Verify email",
+//     html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationCode}">Click verify email</a>`,
+//   };
+
+//   await sendEmail(verifyEmail);
+
+//   user = await refreshUserToken(user._id);
+//   const { accessToken, refreshToken } = user;
+//   const verificationToken = await sendVerificationEmail(user, lang);
 // _______________________________________
 //   if (!passwordCompare) {
 //     throw HttpError(401, "Email or password invalid");
