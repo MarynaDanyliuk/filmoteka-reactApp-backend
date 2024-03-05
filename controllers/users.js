@@ -6,7 +6,7 @@ const { ctrlWrapper, HttpError } = require("../helpers");
 
 // const SECRET_KEY = "lao<9~H{iVX6m=hsg}hhUDoi=Vu5:_";
 
-const { SECRET_KEY } = process.env.SECRET_KEY;
+const { SECRET_KEY } = process.env;
 
 // const verificationEmail = require("../templates/verificationEmail");
 
