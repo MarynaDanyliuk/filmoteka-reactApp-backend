@@ -11,6 +11,8 @@ const {
   //   removeFromCloud,
 } = require("../helpers");
 
+// const SECRET_KEY = "";
+
 const { SECRET_KEY, FRONTEND_URL } = process.env;
 // const verificationEmail = require("../templates/verificationEmail");
 
@@ -25,13 +27,16 @@ const register = async (req, res) => {
     throw HttpError(409, "Email in use");
   }
 
+  //   const payload = {
+  //     id: user._id,
+  //   };
+
   const hashPassword = await bcrypt.hash(password, 10);
-  const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
+  //   const token = jwt.sign(payload, SECRET_KEY, expiresIn("23h"));
 
   user = await User.create({
     ...req.body,
     password: hashPassword,
-    // verificationToken,
   });
 
   //   const verifyEmail = {
@@ -47,7 +52,6 @@ const register = async (req, res) => {
   //   const verificationToken = await sendVerificationEmail(user, lang);
   res.status(201).json({
     email: user.email,
-    token: token,
     // accessToken,
     // refreshToken,
     // token: verificationToken,
