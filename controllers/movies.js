@@ -3,10 +3,22 @@ const { Movie } = require("../models/movie");
 const { HttpError, ctrlWrapper } = require("../helpers");
 
 const getAllMovies = async (req, res) => {
+  const { _id: owner } = req.user;
+  console.log(owner);
+
   // const { user: { _id: userId } = {}, query } = req;
 
-  const result = await Movie.find();
+  const result = await Movie.find(owner);
   res.json(result);
+};
+
+const addMovie = async (req, res) => {
+  const { _id: owner } = req.user;
+
+  console.log(owner);
+
+  const result = await Movie.create({ ...req.body, owner });
+  res.status(201).json(result);
 };
 
 const getById = async (req, res) => {
@@ -16,11 +28,6 @@ const getById = async (req, res) => {
     throw HttpError(404, "Not found");
   }
   res.json(result);
-};
-
-const add = async (req, res) => {
-  const result = await books.add(req.body);
-  res.status(201).json(result);
 };
 
 const updateById = async (req, res) => {
@@ -47,7 +54,7 @@ const deleteById = async (req, res) => {
 module.exports = {
   getAllMovies: ctrlWrapper(getAllMovies),
   getById: ctrlWrapper(getById),
-  add: ctrlWrapper(add),
+  addMovie: ctrlWrapper(addMovie),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),
 };
