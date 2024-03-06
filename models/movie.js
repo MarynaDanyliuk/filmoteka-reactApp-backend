@@ -6,12 +6,21 @@ const movieSchema = new Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
-    author: {
+    url: {
       type: String,
       required: true,
     },
+    voteAverage: {
+      type: String,
+      required: true,
+    },
+    releaseDate: {
+      type: String,
+      required: true,
+    },
+    genreIds: {},
     favorite: {
       type: Boolean,
       default: true,
@@ -33,11 +42,13 @@ const joiAddSchema = Joi.object({
 
 const Movie = model("movie", movieSchema);
 
+const schemas = {
+  joiAddSchema,
+};
+
 module.exports = {
   Movie,
-  schemas: {
-    add: joiAddSchema,
-  },
+  schemas,
 };
 
 // _____________________________________________
