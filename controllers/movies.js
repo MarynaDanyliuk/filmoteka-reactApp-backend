@@ -4,9 +4,8 @@ const { HttpError, ctrlWrapper } = require("../helpers");
 
 const getAllMovies = async (req, res) => {
   const { _id: owner } = req.user;
-  console.log(owner);
 
-  // const { user: { _id: userId } = {}, query } = req;
+  console.log(owner);
 
   const result = await Movie.find(owner);
   res.json(result);
@@ -21,13 +20,20 @@ const addMovie = async (req, res) => {
   res.status(201).json(result);
 };
 
-const getById = async (req, res) => {
-  const { id } = req.params;
-  const result = await books.getById(id);
-  if (!result) {
-    throw HttpError(404, "Not found");
+const getMovieById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Movie.getById(id);
+
+    if (!result) {
+      throw HttpError(404, `Book with ${id} not found`);
+      // res.status(404).json({ message: ` Book with ${id} not found` });
+    }
+    res.json(result);
+  } catch (error) {
+    next(error);
+    // res.status(500).json({ message: error.message });
   }
-  res.json(result);
 };
 
 const updateById = async (req, res) => {
@@ -53,7 +59,7 @@ const deleteById = async (req, res) => {
 
 module.exports = {
   getAllMovies: ctrlWrapper(getAllMovies),
-  getById: ctrlWrapper(getById),
+  getMovieById: ctrlWrapper(getMovieById),
   addMovie: ctrlWrapper(addMovie),
   updateById: ctrlWrapper(updateById),
   deleteById: ctrlWrapper(deleteById),

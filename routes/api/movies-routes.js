@@ -2,14 +2,29 @@ const express = require("express");
 
 const ctrl = require("../../controllers/movies");
 
-const { authenticate, validateBody } = require("../../middlewares");
+const { authenticate, validateBody, isValidId } = require("../../middlewares");
+const { schemas } = require("../../models/movie");
+
+const router = express.Router();
+
+router.get("/", authenticate, ctrl.getAllMovies);
+
+router.get("/:id", authenticate, isValidId, ctrl.getMovieById);
+
+router.post(
+  "/:id",
+  authenticate,
+  isValidId,
+  validateBody(schemas.joiAddSchema),
+  ctrl.addMovie
+);
+
+module.exports = router;
 
 // const createError = require("http-errors");
 
 // const movies = require("../../models/movie");
 // const { Movie, schemas } = movies;
-
-const router = express.Router();
 
 // router.get("/", ctrl.getAll);
 
@@ -21,10 +36,6 @@ const router = express.Router();
 //   // const result = await movies.listMovies();
 //   // return res.status(200).json(result);
 // });
-
-router.get("/", authenticate, ctrl.getAllMovies);
-
-module.exports = router;
 
 // title: "Express Testing",
 // message: "The app is working properly!",

@@ -10,11 +10,9 @@ const movieSchema = new Schema(
     title: {
       type: String,
       required: true,
-      // unique: true,
     },
     url: {
       type: String,
-      required: true,
     },
     voteAverage: {
       type: String,
@@ -22,12 +20,15 @@ const movieSchema = new Schema(
     },
     releaseDate: {
       type: String,
-      required: true,
     },
-    genreIds: {},
-    favorite: {
+    genreIds: {
+      type: String,
+    },
+    watched: {
       type: Boolean,
-      default: true,
+    },
+    queue: {
+      type: Boolean,
     },
     owner: {
       type: Schema.Types.ObjectId,
